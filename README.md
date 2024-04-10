@@ -1,5 +1,5 @@
-# proj-3-grp-4
-# Influencers Data Analysis
+# proj-3-grp-4 - Influencers Data Analysis
+
 
 ## Overview
 
@@ -44,4 +44,25 @@ The Python script performs the following operations:
 3. Visualizes the data using Matplotlib.
 
 ![image](https://github.com/htojyy/proj-3-grp-4/assets/150103905/f76afa7a-4d7d-47d6-b1f3-8fab0271cf4e)
+
+### Ethical Considerations
+
+In conducting this data analysis project, ethical considerations were a primary concern. 
+
+Efforts were made to anonymize sensitive data and ensure compliance with data protection regulations. 
+
+Throughout the analysis, we remained vigilant for potential biases. Transparency was prioritized, and efforts were made to clearly document our methodologies.
+
+Our goal was to conduct the analysis in a fair, responsible, and transparent manner, mindful of the potential impact on individuals and communities. We welcome feedback and encourage readers to raise any ethical concerns they may have regarding the project.
+
+### References data source
+
+- https://www.kaggle.com/datasets/bhavyadhingra00020/top-100-social-media-influencers-2024-countrywise?resource=download-
+  
+### References
+
+- https://git.bootcampcontent.com/University-of-Adelaide/UADEL-VIRT-DATA-PT-12-2023-U-LOLC
+- https://www.mongodb.com/
+- https://www.python.org/
+  
 
