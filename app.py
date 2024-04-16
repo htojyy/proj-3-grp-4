@@ -19,6 +19,9 @@ import seaborn as sns
 # import seaborn.objects as so
 from io import BytesIO
 import base64
+import plotly.graph_objects as go
+import matplotlib
+matplotlib.use('agg')
 
 # https://kumudithaudaya.medium.com/display-a-table-in-a-database-in-html-using-prettytable-python-70d7325f2e46
 # Import from_db_cursor from prettytable library
@@ -31,7 +34,7 @@ from prettytable import from_db_cursor
 # initialise Flask app
 app = Flask("myapp")
 
-# connect and create db Influences
+# connect and create db Influencers
 app.config["MONGO_URI"] = "mongodb://localhost:27017/influencers"
 
 # initialise client for mongodb
@@ -59,10 +62,8 @@ def homepage():
     return (
         f"<u><b>Available Routes</b></u><br/><br/>"
         f"View the top 100 influencers by social media platform:<br/>"
-        f"/youtube<br/>"
-        f"/threads<br/>"
-        f"/instagram<br/>"
-        f"/tiktok<br/><br/>"
+        f"/platforms<br/><br/>"
+
         f"Valid routes to view influencers by top #x, valid numbers between 1 - 100 <br/>" # across different platforms or all? make a table?
         f"E.g. /10<br/><br/>"
         f"Valid routes to view top influencers ranked between (1 - 100):<br/>"
@@ -73,44 +74,77 @@ def homepage():
         f"'input country name here'<br/>"
         f"E.g. /United%20States<br/>"
     )
+# platforms = ['Instagram', 'Threads', 'TikTok', 'YouTube']
 
-# List of influencers by platform
-@app.route("/instagram", methods=("POST", "GET"))
-def instagram():
-    """Top 100 Instagram influencers"""
+@app.route("/platforms", methods=("POST", "GET"))
+def social_platform_tbl():
+    # Get the names of the platforms from the database
+    platforms = ['Instagram', 'Threads', 'TikTok', 'YouTube']
+    return render_template('table.html', platforms=platforms, title='Top 100 Influencers')
 
-    insta_collection = db.instagram
-    insta_df = pd.DataFrame(list(insta_collection.find()))
+# for platform in platforms:
+#     @app.route('/platforms/Top100/' + platform)
+#     def rank_table(platform):
+#         collection = db.all_platforms
+#         df = pd.DataFrame(list(collection.find()))
+#         df_platform = df.loc[df['Social Media Platform'] == platform]
+#         df_platform = df_platform.reset_index()
+#         df_platform = df_platform.rename(columns={"index":"Rank"})
+#         df_platform['Rank'] = df_platform.index + 1
+#         platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]
 
-    # https://stackoverflow.com/questions/52644035/how-to-show-a-pandas-dataframe-into-a-existing-flask-html-table
-    return insta_df[['#','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']].to_html(header="true", table_id="table",index=False)
+#         return {'data': platform_df.to_dict('records')}
 
-@app.route("/threads", methods=("POST", "GET"))
-def threads():
-    """Top 100 Threads influencers"""
+@app.route('/platforms/Top100/Instagram')
+def insta_tbl():
+    collection = db.all_platforms
+    df = pd.DataFrame(list(collection.find()))
+    df_platform = df.loc[df['Social Media Platform'] == 'Instagram']
+    df_platform = df_platform.reset_index()
+    df_platform = df_platform.rename(columns={"index":"Rank"})
+    df_platform['Rank'] = df_platform.index + 1
+    # platform_df = df_platform[['NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]
+    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]  
+    return {'data': platform_df.to_dict('records')}
 
-    threads_collection = db.threads
-    threads_df = pd.DataFrame(list(threads_collection.find()))
-    return threads_df[['#','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']].to_html(header="true", table_id="table",index=False)
+@app.route('/platforms/Top100/TikTok')
+def tiktok_tbl():
+    collection = db.all_platforms
+    df = pd.DataFrame(list(collection.find()))
+    df_platform = df.loc[df['Social Media Platform'] == 'TikTok']
+    df_platform = df_platform.reset_index()
+    df_platform = df_platform.rename(columns={"index":"Rank"})
+    df_platform['Rank'] = df_platform.index + 1
+    platform_df = df_platform[['NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]
+  
+    return {'data': platform_df.to_dict('records')}
 
-@app.route("/youtube", methods=("POST", "GET"))
-def youtube():
-    """Top 100 YouTube influencers"""
+@app.route('/platforms/Top100/Threads')
+def threads_tbl():
+    collection = db.all_platforms
+    df = pd.DataFrame(list(collection.find()))
+    df_platform = df.loc[df['Social Media Platform'] == 'Threads']
+    df_platform = df_platform.reset_index()
+    df_platform = df_platform.rename(columns={"index":"Rank"})
+    df_platform['Rank'] = df_platform.index + 1
+    platform_df = df_platform[['NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]
+  
+    return {'data': platform_df.to_dict('records')}
 
-    youtube_collection = db.youtube
-    youtube_df = pd.DataFrame(list(youtube_collection.find()))
-    return youtube_df[['#','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']].to_html(header="true", table_id="table",index=False)
+@app.route('/platforms/Top100/YouTube')
+def youtube_tbl():
+    collection = db.all_platforms
+    df = pd.DataFrame(list(collection.find()))
+    df_platform = df.loc[df['Social Media Platform'] == 'YouTube']
+    df_platform = df_platform.reset_index()
+    df_platform = df_platform.rename(columns={"index":"Rank"})
+    df_platform['Rank'] = df_platform.index + 1
+    platform_df = df_platform[['NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]
+  
+    return {'data': platform_df.to_dict('records')}
 
-@app.route("/tiktok", methods=("POST", "GET"))
-def tiktok():
-    """Top 100 TikTok influencers"""
-
-    tiktok_collection = db.tiktok
-    tiktok_df = pd.DataFrame(list(tiktok_collection.find()))
-    return tiktok_df[['#','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']].to_html(header="true", table_id="table",index=False)
-
-# up to here - will not work until I pull in the merged df
-@app.route("/<topnumber>", methods=("POST", "GET"))
+# horizontal bar plot of top x number of influencers by platform
+@app.route("/Top<topnumber>", methods=("POST", "GET"))
 def topnumber_influencers(topnumber):
 
     """ Show horizontal bar plot from all platforms by top x influencers """
