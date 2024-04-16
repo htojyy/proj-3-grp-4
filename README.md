@@ -45,6 +45,38 @@ The Python script performs the following operations:
 
 ![image](https://github.com/htojyy/proj-3-grp-4/assets/150103905/f76afa7a-4d7d-47d6-b1f3-8fab0271cf4e)
 
+### Influencers by Social Media Platform
+
+This project provides a web application to visualize data about social media influencers. It allows users to select an influencer from a dropdown menu and view their follower statistics by social media platform.
+
+  #### Usage
+
+1. Run the Flask server by executing the `app.py` file:
+
+   ```bash
+   python app.py
+   ```
+1 - Open your web browser and go to http://localhost:5000/ to access the application.
+
+2 - Select an influencer from the dropdown menu to view their follower statistics.
+
+3 - Click the "Get Data" button to retrieve and display the follower statistics by social media platform.
+
+   #### Project Structure
+
+```bash
+Influencers by SMP/
+│
+├── app.py            # Flask application
+└── templates/
+    └── index.html    # HTML template for rendering the main page
+   ``` 
+
+![Captura de pantalla 2024-04-16 014054](https://github.com/htojyy/proj-3-grp-4/assets/150103905/ab903f41-6139-46aa-8438-a102659ddad3)
+
+
+![Captura de pantalla 2024-04-16 012441](https://github.com/htojyy/proj-3-grp-4/assets/150103905/647c9284-ccbf-4ed0-b814-83537bd34717)
+
 ### Ethical Considerations
 
 In conducting this data analysis project, ethical considerations were a primary concern. 
