@@ -96,5 +96,8 @@ Our goal was to conduct the analysis in a fair, responsible, and transparent man
 - https://git.bootcampcontent.com/University-of-Adelaide/UADEL-VIRT-DATA-PT-12-2023-U-LOLC
 - https://www.mongodb.com/
 - https://www.python.org/
+- https://plotly.com/javascript/
+- https://flask.palletsprojects.com/en/3.0.x/
+- https://www.sqlalchemy.org/
   
 
