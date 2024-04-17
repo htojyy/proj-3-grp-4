@@ -1,0 +1,8 @@
+<!-- https://stackoverflow.com/questions/65419083/simple-matplotlib-as-embedded-image-in-web-page-generated-by-flask -->
+<!doctype html>
+
+<title>Chart</title>
+<section>
+  <h2>{{title}}</h2>
+  <img src="data:image/png;base64, {{ plot_url }}">
+</section>

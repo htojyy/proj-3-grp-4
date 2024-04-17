@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Followers</title>
+    <!-- Link to the Plotly.js library for visualizations -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Number of followers by influencer and platform</h1>
+        <!-- Dropdown filter to select an influencer -->
+        <label for="selectInfluencer">Select influencer:</label>
+        <select id="selectInfluencer" onchange="loadFollowersByPlatform()">
+            {% for influencer in influencers %}
+                <option value="{{ influencer }}">{{ influencer }}</option>
+            {% endfor %}
+        </select>
+        <!-- Button to get data of followers by social media platform -->
+        <!-- <button id="getDataButton">Get Data</button> -->
+        <!-- Div for data visualization -->
+        <div id="visualization"></div>
+    </div>
+
+    <script>
+        // Variable to store the plot instance
+        var plot;
+
+        // Function to load data of followers by platform and display visualization
+        function loadFollowersByPlatform() {
+            // Get the name of the selected influencer
+            var selectedInfluencer = document.getElementById('selectInfluencer').value;
+
+            // Make an AJAX request to the backend to get data of followers by platform
+            fetch('/followers_by_platform', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({ name: selectedInfluencer }) 
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Create visualization using followers by platform data
+                    var platforms = Object.keys(data);
+                    var followers = Object.values(data);
+                    var trace = {
+                        x: platforms,
+                        y: followers,
+                        type: 'bar'
+                    };
+                    var layout = {
+                        title: 'Followers by Social Media Platform',
+                        xaxis: { title: 'Social Media Platform' },
+                        yaxis: { title: 'Followers' }
+                    };
+                    
+                    // Plot instance 
+                    if (plot) {
+                        Plotly.react('visualization', [trace], layout);
+                    } else {
+                        plot = Plotly.newPlot('visualization', [trace], layout);
+                    }
+                })
+                .catch(error => console.error('Error loading followers by platform data:', error));
+        }
+
+        // Add event listener to the button to call loadFollowersByPlatform() when clicked
+        // document.getElementById('getDataButton').addEventListener('click', loadFollowersByPlatform);
+    </script>
+</body>
+</html>
