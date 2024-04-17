@@ -85,7 +85,7 @@ def social_platform_tbl():
     """Get the platform names from the database"""
 
     platforms = ['Instagram', 'Threads', 'TikTok', 'YouTube']
-    return render_template('table.html', platforms=platforms, title='Top 100 Influencers')
+    return render_template('table.html', platforms=platforms, title='Top 100 Influencers by number of followers')
 
 @app.route('/platforms/Top100/Instagram')
 def insta_tbl():
@@ -95,7 +95,7 @@ def insta_tbl():
     df_platform = df_platform.reset_index()
     df_platform = df_platform.rename(columns={"index":"Rank"})
     df_platform['Rank'] = df_platform.index + 1
-    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]  
+    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH','ENGAGEMENT RATE']]  
     return {'data': platform_df.to_dict('records')}
 
 @app.route('/platforms/Top100/TikTok')
@@ -106,7 +106,7 @@ def tiktok_tbl():
     df_platform = df_platform.reset_index()
     df_platform = df_platform.rename(columns={"index":"Rank"})
     df_platform['Rank'] = df_platform.index + 1
-    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]
+    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH','ENGAGEMENT RATE']]
   
     return {'data': platform_df.to_dict('records')}
 
@@ -118,7 +118,7 @@ def threads_tbl():
     df_platform = df_platform.reset_index()
     df_platform = df_platform.rename(columns={"index":"Rank"})
     df_platform['Rank'] = df_platform.index + 1
-    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]
+    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH','ENGAGEMENT RATE']]
   
     return {'data': platform_df.to_dict('records')}
 
@@ -130,7 +130,7 @@ def youtube_tbl():
     df_platform = df_platform.reset_index()
     df_platform = df_platform.rename(columns={"index":"Rank"})
     df_platform['Rank'] = df_platform.index + 1
-    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH']]
+    platform_df = df_platform[['Rank','NAME','FOLLOWERS','COUNTRY','POTENTIAL REACH','ENGAGEMENT RATE']]
   
     return {'data': platform_df.to_dict('records')}
 
