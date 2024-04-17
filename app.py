@@ -74,7 +74,10 @@ def homepage():
 
         f"Maps of Top 100 influencers across the world:<br/>"
         f"/map_followers<br/>"
-        f"/map_engagement<br/>"
+        f"/map_engagement<br/><br/>"
+
+        f"Tree maps of where influencers are from and their influence category:<br/>"
+        f"/treemap<br/>"
     )
 
 @app.route("/platforms", methods=("POST", "GET"))
@@ -273,6 +276,12 @@ def map_engagement():
     """Interactive map - engagement"""
 
     return render_template('engagement_rate_world_map.html', title='Map of countries where Top 100 influencers are from and their engagement rate (%)')
+
+@app.route("/treemap", methods=("POST", "GET"))
+def treemap():
+    """Interactive heat map"""
+
+    return render_template('Tree map to show the categorisation.html', title='Tree map of countries and categories of influence')
 
 # list of countries
 @app.route("/countries", methods=("POST", "GET"))
