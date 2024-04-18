@@ -105,3 +105,4 @@ Our goal was to conduct the analysis in a fair, responsible, and transparent man
 * <https://www.digitalocean.com/community/tutorials/how-to-use-mongodb-in-a-flask-application>
 * <https://www.geeksforgeeks.org/sending-data-from-a-flask-app-to-mongodb-database/>
 * <https://stackoverflow.com/questions/65419083/simple-matplotlib-as-embedded-image-in-web-page-generated-by-flask>
+* <https://blog.miguelgrinberg.com/post/beautiful-interactive-tables-for-your-flask-templates>
